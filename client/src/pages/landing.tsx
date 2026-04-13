@@ -146,9 +146,12 @@ export default function LandingPage() {
       <section className="py-24 sm:py-32 px-6" style={{ background: "#f5f1eb" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-12 text-center">
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 text-center">
               Forewords
             </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-12 text-center">
+              Praise for The Sales Algorithm
+            </h2>
           </Reveal>
 
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
