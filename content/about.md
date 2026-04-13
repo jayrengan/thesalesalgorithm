@@ -1,0 +1,12 @@
+---
+title: About JK
+image: /images/author/jk-portrait.jpg
+---
+
+Rengan Jayakrishnan is an author, mentor, and sales coach specialising in go-to-market strategies and partner-led growth for B2B startups and technology companies. With 30+ years of global experience selling software solutions and services, he advises founders and leadership teams on building scalable sales engines, high-impact channel ecosystems, and cross-border market entry strategies. An IIT Roorkee alumnus with a management qualification from NMIMS, he blends deep domain expertise with hands-on sales leadership across direct, channel, and enterprise accounts in international markets.
+
+He is the creator of "The Sales Algorithm" platform and podcast, where he distils lessons from startup founders, CXOs, and industry pioneers into practical playbooks for mid-level sales leaders, startup founders, and entrepreneurs. Over the years, he has worn multiple hats — sales head, startup advisor, author, podcaster, and trainer — and is known for simplifying complex sales challenges into clear, Monday-morning-actionable steps. His work goes beyond "closing deals" to focus on fundamentals like pipeline design, qualification discipline, structured follow-ups, and the right sales behaviours that build long-term relationships and trust.
+
+The Sales Algorithm ecosystem reflects his belief that sales is both an art and an engineered discipline. Through his content, channels, and frameworks, he shares playbooks on time management for salespeople, building and leading teams, creating effective sales conversations, and using technology and AI tools intelligently in the sales process. Deeply invested in teaching and storytelling, he hosts conversations with entrepreneurs and leaders, turning their journeys into lessons for the wider community. His style is direct, candid, and grounded in lived experience — often using humour, analogies, and real stories from the field to make learning enjoyable and memorable.
+
+At the core, Rengan believes great sales is about trust, consistency, and value creation. He continues to work with startups, growing companies, and ambitious sales professionals who want to move from chaos to clarity in their go-to-market approach. This website is an extension of that mission — a home for his ideas, tools, content, and programs designed to help you build your own "sales algorithm" and execute it with discipline, creativity, and heart.
