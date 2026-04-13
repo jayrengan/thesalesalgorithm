@@ -38,7 +38,9 @@ export function SiteNav() {
           : "bg-[#faf8f5]/95 backdrop-blur-md border-b border-[#e8e0d5]/60"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between">
+      <div className={`mx-auto h-20 sm:h-24 flex items-center justify-between transition-all duration-300 ${
+        isDark ? "max-w-full px-6 sm:px-10" : "max-w-6xl px-6"
+      }`}>
         <Link href="/" className="hover:opacity-80">
           <img
             src={asset(isDark ? "/images/branding/logo-white.png" : "/images/branding/logo.png")}

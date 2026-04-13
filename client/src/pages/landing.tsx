@@ -46,28 +46,31 @@ export default function LandingPage() {
     .split("\n\n")
     .filter((p: string) => p.trim());
 
-  // Scroll gate: hold at the title reveal, release on next scroll
-  const gateRef = useRef({ locked: false, passed: false });
+  // Scroll gate: hold at the title reveal on first downward scroll, then release
+  const gateRef = useRef({ locked: false, passed: false, timer: 0 });
   useEffect(() => {
-    const lockPoint = window.innerHeight * 0.5; // 50vh
+    const lockPoint = window.innerHeight * 0.5;
     const handler = () => {
       const y = window.scrollY;
       const gate = gateRef.current;
       if (gate.passed) return;
       if (!gate.locked && y >= lockPoint) {
         gate.locked = true;
-        window.scrollTo({ top: lockPoint, behavior: "smooth" });
-      }
-      if (gate.locked && y > lockPoint + 10) {
-        // user scrolled again past the gate
-        gate.passed = true;
+        window.scrollTo({ top: lockPoint });
+        // Release gate after a short hold
+        gate.timer = window.setTimeout(() => {
+          gate.passed = true;
+        }, 800);
       }
       if (gate.locked && !gate.passed) {
         window.scrollTo({ top: lockPoint });
       }
     };
     window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    return () => {
+      window.removeEventListener("scroll", handler);
+      clearTimeout(gateRef.current.timer);
+    };
   }, []);
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -280,7 +283,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── THE PODCAST ─── */}
-      <section className="py-24 sm:py-32 px-6" style={{ background: "#faf8f5" }}>
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-6" style={{ background: "#faf8f5" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -368,7 +371,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── THE JOURNEY ─── */}
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-6" style={{ background: "#faf8f5" }}>
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-6" style={{ background: "#f5f1eb" }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
