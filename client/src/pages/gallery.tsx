@@ -47,14 +47,12 @@ export default function GalleryPage() {
   if (!galleryItems.length) return null;
 
   return (
-    <div className="p-6 space-y-8 max-w-5xl">
+    <div className="pt-28 pb-20 px-6 space-y-8 max-w-4xl mx-auto min-h-screen" style={{ background: "#faf8f5" }}>
       <motion.div initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}>
-        <motion.div variants={fadeInUp} className="mb-6">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-1 h-8 bg-gradient-to-b from-accent to-primary rounded-full" />
-            <h1 className="text-2xl font-bold">{gallery.title || "Gallery"}</h1>
-          </div>
-          <p className="text-muted-foreground ml-4">{gallery.subtitle || "Photos and videos from The Sales Algorithm journey"}</p>
+        <motion.div variants={fadeInUp} className="mb-8">
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">Gallery</p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold mb-2">{gallery.title || "Gallery"}</h1>
+          <p className="text-muted-foreground">{gallery.subtitle || "Photos and videos from The Sales Algorithm journey"}</p>
         </motion.div>
 
         <motion.div variants={fadeInUp}>

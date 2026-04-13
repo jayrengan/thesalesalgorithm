@@ -1,0 +1,446 @@
+import { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, Play } from "lucide-react";
+import { SiYoutube, SiSpotify, SiInstagram } from "react-icons/si";
+import { Link } from "wouter";
+import content from "virtual:content";
+import { asset } from "@/lib/assets";
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-150px" }}
+      transition={{ duration: 1.6, delay: delay + 0.3, ease: [0.08, 0.82, 0.17, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const highlights = [
+  { num: "01", title: "The B2B Sales Cycle", desc: "Understanding the full arc from first touch to close" },
+  { num: "02", title: "Creating a Sales Playbook", desc: "Building repeatable frameworks that scale" },
+  { num: "03", title: "Product Positioning", desc: "Framing your product for the right buyers" },
+  { num: "04", title: "Selling to Fortune 500s", desc: "Enterprise deals, long cycles, high stakes" },
+  { num: "05", title: "Sales Negotiations & Closure", desc: "From objection handling to getting the signature" },
+];
+
+
+export default function LandingPage() {
+  const book = content.pages.book;
+  const site = content.pages.site;
+  const podcasts = content.podcasts.filter((p: any) => p.youtube_id);
+  const introText = book.body.split("## ")[0].trim();
+  const introParagraphs = introText
+    .split("\n\n")
+    .filter((p: string) => p.trim());
+
+  // Scroll gate: hold at the title reveal, release on next scroll
+  const gateRef = useRef({ locked: false, passed: false });
+  useEffect(() => {
+    const lockPoint = window.innerHeight * 0.5; // 50vh
+    const handler = () => {
+      const y = window.scrollY;
+      const gate = gateRef.current;
+      if (gate.passed) return;
+      if (!gate.locked && y >= lockPoint) {
+        gate.locked = true;
+        window.scrollTo({ top: lockPoint, behavior: "smooth" });
+      }
+      if (gate.locked && y > lockPoint + 10) {
+        // user scrolled again past the gate
+        gate.passed = true;
+      }
+      if (gate.locked && !gate.passed) {
+        window.scrollTo({ top: lockPoint });
+      }
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const titleOpacity = useTransform(scrollYProgress, [0.01, 0.12], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.01, 0.12], [40, 0]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.25], [1, 1.06]);
+  const overlayOpacity = useTransform(scrollYProgress, [0.0, 0.1], [0, 0.75]);
+
+  return (
+    <div style={{ background: "#faf8f5" }}>
+      {/* ─── HERO ─── */}
+      <section
+        ref={heroRef}
+        className="relative h-[200vh]"
+      >
+        <div className="sticky top-0 h-screen overflow-hidden">
+          {/* Full-bleed mockup photo */}
+          <motion.img
+            src={asset("/images/book/hero-mockup.jpg")}
+            alt="The Sales Algorithm"
+            className="w-full h-full object-cover"
+            style={{ scale: imgScale }}
+          />
+
+          {/* Top gradient for nav readability */}
+          <div
+            className="absolute top-0 left-0 right-0 h-32 z-10"
+            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.4), transparent)" }}
+          />
+
+          {/* Warm overlay that builds as you scroll */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ background: "#2a1a0e", opacity: overlayOpacity }}
+          />
+
+          {/* Title that reveals on scroll */}
+          <motion.div
+            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pt-8"
+            style={{ opacity: titleOpacity, y: titleY }}
+          >
+            <p className="text-sm sm:text-base tracking-[0.3em] uppercase text-white/70 mb-4 font-medium">
+              A book by {book.author}
+            </p>
+            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white font-bold leading-[1.05] mb-6" style={{ textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}>
+              The Sales
+              <br />
+              Algorithm
+            </h1>
+            <p className="text-lg sm:text-xl text-white/80 max-w-lg mb-8 font-medium">
+              {book.subtitle.split(/(?=Startup)/)[0]}
+              <br />
+              {book.subtitle.split(/(?=Startup)/)[1]}
+            </p>
+            <span className="inline-block px-5 py-2.5 border border-white/30 rounded-full text-white/90 text-xs tracking-[0.2em] uppercase font-semibold">
+              {book.status || "Coming Soon"}
+            </span>
+          </motion.div>
+
+          {/* Scroll hint */}
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowDown className="w-5 h-5 text-white/30" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── PRAISE ─── */}
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#f5f1eb" }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-12 text-center">
+              Forewords
+            </p>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
+            <Reveal className="h-full">
+              <div className="flex flex-col items-center text-center h-full">
+                <img
+                  src={asset("/images/author/jk-anand.jpg")}
+                  alt="Dr. Anand Deshpande"
+                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover mb-6 shadow-md flex-shrink-0"
+                />
+                <p className="text-lg leading-relaxed text-foreground/60 flex-1 flex items-center max-w-[280px]" style={{ fontFamily: "'Lora', serif", fontStyle: "italic" }}>
+                  "A body of practical wisdom rarely seen written down so
+                  clearly."
+                </p>
+                <div className="mt-6">
+                  <p className="text-sm font-bold" style={{ fontFamily: "'Lora', serif" }}>Dr. Anand Deshpande</p>
+                  <p className="text-xs text-foreground/70 mt-0.5" style={{ fontFamily: "'Lora', serif" }}>
+                    Founder & Chairman, Persistent Systems
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1} className="h-full">
+              <div className="flex flex-col items-center text-center h-full">
+                <img
+                  src={asset("/images/gallery/jk-with-ashok.jpg")}
+                  alt="Dr. Ashok Korwar"
+                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover mb-6 shadow-md flex-shrink-0"
+                />
+                <p className="text-lg leading-relaxed text-foreground/60 flex-1 flex items-center max-w-[300px]" style={{ fontFamily: "'Lora', serif", fontStyle: "italic" }}>
+                  "Sales is the single most important function in any company."
+                </p>
+                <div className="mt-6">
+                  <p className="text-sm font-bold" style={{ fontFamily: "'Lora', serif" }}>Dr. Ashok Korwar</p>
+                  <p className="text-xs text-foreground/70 mt-0.5" style={{ fontFamily: "'Lora', serif" }}>
+                    Former Professor, IIM Ahmedabad
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ABOUT THE BOOK ─── */}
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#faf8f5" }}>
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+              About the Book
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-10">
+              From first pitch to Fortune 500 deals
+            </h2>
+          </Reveal>
+          {introParagraphs.map((para: string, i: number) => (
+            <Reveal key={i} delay={0.08 * (i + 1)}>
+              <p className="text-lg leading-relaxed text-foreground/70 mb-6">
+                {para}
+              </p>
+            </Reveal>
+          ))}
+          <Reveal delay={0.2}>
+            <div className="flex flex-wrap gap-2 mt-10">
+              {(book.audiences || []).map((audience: string, i: number) => (
+                <span
+                  key={i}
+                  className="px-4 py-1.5 rounded-full text-sm text-foreground/50"
+                  style={{ background: "rgba(0,0,0,0.03)", border: "1px solid rgba(0,0,0,0.06)" }}
+                >
+                  {audience}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── WHAT'S INSIDE ─── */}
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#f5f1eb" }}>
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+              What's Inside
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3">
+              18 chapters across two sections
+            </h2>
+            <p className="text-foreground/60 mb-12">
+              Frameworks, strategies, and real-world playbooks covering team building, customer success, partner influence, and much more.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {highlights.map((h) => (
+                <div
+                  key={h.num}
+                  className="p-5 rounded-lg"
+                  style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.05)" }}
+                >
+                  <span className="font-mono text-xs block mb-2" style={{ color: "rgba(0,0,0,0.15)" }}>
+                    {h.num}
+                  </span>
+                  <p className="text-sm font-semibold mb-1">{h.title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {h.desc}
+                  </p>
+                </div>
+              ))}
+              <div
+                className="p-5 rounded-lg border border-dashed"
+                style={{ background: "transparent", borderColor: "rgba(0,0,0,0.1)" }}
+              >
+                <span className="font-mono text-xs block mb-2" style={{ color: "rgba(0,0,0,0.12)" }}>
+                  ...
+                </span>
+                <p className="text-sm font-semibold mb-1 text-foreground/50">And much more</p>
+                <p className="text-xs text-muted-foreground/70 leading-relaxed">
+                  Team building, customer success, goal setting, partner influence, and more
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── THE PODCAST ─── */}
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#faf8f5" }}>
+        <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+              The Podcast
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3">
+              Conversations behind the book
+            </h2>
+            <p className="text-muted-foreground mb-12 max-w-xl">
+              Hear directly from the founders, investors, and leaders whose
+              experiences shaped this book.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {podcasts.slice(0, 6).map((podcast: any, i: number) => (
+                <a
+                  key={i}
+                  href={podcast.youtube_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="relative aspect-video rounded-lg overflow-hidden mb-3" style={{ background: "rgba(0,0,0,0.04)" }}>
+                    <img
+                      src={`https://img.youtube.com/vi/${podcast.youtube_id}/mqdefault.jpg`}
+                      alt={podcast.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <Play
+                          className="w-4 h-4 text-foreground ml-0.5"
+                          fill="currentColor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium group-hover:text-foreground/60 transition-colors">
+                    Ep {podcast.episode}: {podcast.title}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a
+                href={site.youtube_channel}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm text-foreground/60 hover:text-foreground transition-colors"
+                style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                <SiYoutube className="w-4 h-4 text-[#FF0000]" />
+                YouTube
+              </a>
+              {podcasts[0]?.spotify_url && (
+                <a
+                  href={podcasts[0].spotify_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm text-foreground/60 hover:text-foreground transition-colors"
+                  style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+                >
+                  <SiSpotify className="w-4 h-4 text-[#1DB954]" />
+                  Spotify
+                </a>
+              )}
+              {site.instagram && (
+                <a
+                  href={`https://instagram.com/${site.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm text-foreground/60 hover:text-foreground transition-colors"
+                  style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+                >
+                  <SiInstagram className="w-4 h-4 text-[#E4405F]" />
+                  Instagram
+                </a>
+              )}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── THE JOURNEY ─── */}
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-6" style={{ background: "#faf8f5" }}>
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+              Behind the Book
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-10">
+              The journey to The Sales Algorithm
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="text-lg leading-relaxed text-foreground/70 mb-6">
+              From early January 2025, what began as an idea gradually took shape into this book. Family played a pivotal role: Jayashree's constant encouragement, Kshitij's suggestion to journal coaching sessions (which became the backbone of the content), Baani's advice to enrich it with real-life experiences, and Shashvat's proposal for the title and the "Try It Out" sections that shaped it into a practical guide.
+            </p>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="text-lg leading-relaxed text-foreground/70 mb-6">
+              A major turning point came with the launch of The Sales Algorithm Podcast. Conversations with founders like Sandip Chintawar, Kshiteesh Deshmukh, Kaustubh Deshmukh, and Sunil Jalihal enriched the narrative. Panel discussions with Ashok Korwar and Ram Pazhayannur, and sessions on AI in sales with Sandip and Udit Agarwal, added new dimensions.
+            </p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="text-lg leading-relaxed text-foreground/70">
+              The opportunity to interview Anand Deshpande, whose insights were deeply aligned with the book's core ideas, was a defining moment. This journey has been deeply fulfilling, and this book is the result of countless conversations, late nights, and a belief that sales can be taught, structured, and mastered.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── THE AUTHOR ─── */}
+      <section className="pt-12 sm:pt-16 pb-24 sm:pb-32 px-6" style={{ background: "#faf8f5" }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <Reveal>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">
+              The Author
+            </p>
+            <img
+              src={asset("/images/author/jk-portrait.jpg")}
+              alt="Rengan Jayakrishnan"
+              className="w-32 h-32 rounded-full object-cover object-top mx-auto mb-6 shadow-lg"
+              style={{ border: "2px solid #fff" }}
+            />
+            <h3 className="font-serif text-2xl font-bold mb-2">
+              Rengan Jayakrishnan
+            </h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              Author · Sales Leader · Consultant · Mentor
+            </p>
+            <p className="text-foreground/60 leading-relaxed mb-8 max-w-xl mx-auto">
+              With 30+ years of global experience in B2B software sales, JK
+              advises startup founders and leadership teams on building scalable
+              sales engines, channel ecosystems, and go-to-market strategies. An
+              IIT Roorkee alumnus, he blends deep domain expertise with hands-on
+              sales leadership.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm text-foreground/60 hover:text-foreground transition-colors"
+                style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                <svg className="w-4 h-4 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm text-foreground/60 hover:text-foreground transition-colors"
+                style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                Full bio
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </div>
+  );
+}

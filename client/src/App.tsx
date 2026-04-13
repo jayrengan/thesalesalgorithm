@@ -1,61 +1,20 @@
-import { Switch, Route, Router } from "wouter";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import NotFound from "@/pages/not-found";
-import Home from "@/pages/home";
-import ReelsPublicPage from "@/pages/reels-public";
-import PodcastsPublicPage from "@/pages/podcasts-public";
-import BookPage from "@/pages/book";
+import { Switch, Route, Router, useLocation } from "wouter";
+import { SiteNav } from "@/components/site-nav";
+import { Footer } from "@/components/footer";
+import LandingPage from "@/pages/landing";
 import AboutPage from "@/pages/about";
+import PodcastsPage from "@/pages/podcasts-public";
 import GalleryPage from "@/pages/gallery";
+import ShortsPage from "@/pages/shorts";
+import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const style = {
-    "--sidebar-width": "16rem",
-    "--sidebar-width-icon": "3rem",
-  };
-
-  return (
-    <SidebarProvider style={style as React.CSSProperties}>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <div className="flex flex-col flex-1 min-w-0">
-          <header className="flex items-center gap-2 p-3 border-b border-border h-14">
-            <SidebarTrigger />
-            <span className="text-sm font-semibold text-muted-foreground">The Sales Algorithm with JK</span>
-          </header>
-          <main className="flex-1 overflow-auto">
-            {children}
-          </main>
-        </div>
-      </div>
-    </SidebarProvider>
-  );
-}
-
-function WithLayout({ component: Component }: { component: () => JSX.Element | null }) {
-  return (
-    <DashboardLayout>
-      <Component />
-    </DashboardLayout>
-  );
-}
-
-function AppRouter() {
-  return (
-    <Switch>
-      <Route path="/">{() => <WithLayout component={BookPage} />}</Route>
-      <Route path="/home" component={Home} />
-      <Route path="/reels">{() => <WithLayout component={ReelsPublicPage} />}</Route>
-      <Route path="/podcasts">{() => <WithLayout component={PodcastsPublicPage} />}</Route>
-      <Route path="/about">{() => <WithLayout component={AboutPage} />}</Route>
-      <Route path="/book">{() => <WithLayout component={BookPage} />}</Route>
-      <Route path="/gallery">{() => <WithLayout component={GalleryPage} />}</Route>
-      <Route component={NotFound} />
-    </Switch>
-  );
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
 }
 
 function App() {
@@ -65,9 +24,18 @@ function App() {
 
   return (
     <Router>
-      <TooltipProvider>
-        <AppRouter />
-      </TooltipProvider>
+      <ScrollToTop />
+      <SiteNav />
+      <Switch>
+        <Route path="/" component={LandingPage} />
+        <Route path="/book" component={LandingPage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/podcasts" component={PodcastsPage} />
+        <Route path="/gallery" component={GalleryPage} />
+        <Route path="/shorts" component={ShortsPage} />
+        <Route component={NotFound} />
+      </Switch>
+      <Footer />
     </Router>
   );
 }
