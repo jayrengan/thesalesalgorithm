@@ -11,10 +11,6 @@ import AboutPage from "@/pages/about";
 import GalleryPage from "@/pages/gallery";
 import { useEffect } from "react";
 
-// Base path for GitHub Pages subdirectory hosting.
-// Remove this (set to "") when connecting a custom domain.
-const BASE = "/thesalesalgorithm";
-
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   const style = {
     "--sidebar-width": "16rem",
@@ -68,7 +64,7 @@ function App() {
   }, []);
 
   return (
-    <Router base={BASE}>
+    <Router>
       <TooltipProvider>
         <AppRouter />
       </TooltipProvider>

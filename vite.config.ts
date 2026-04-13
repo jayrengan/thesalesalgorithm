@@ -74,9 +74,7 @@ function contentPlugin() {
 }
 
 export default defineConfig({
-  // Base path for GitHub Pages subdirectory hosting.
-  // Remove this (set to "/") when connecting a custom domain.
-  base: "/thesalesalgorithm/",
+  base: "/",
   plugins: [react(), contentPlugin()],
   resolve: {
     alias: {
