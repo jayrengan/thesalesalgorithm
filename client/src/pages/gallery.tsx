@@ -6,15 +6,22 @@ import { asset } from "@/lib/assets";
 
 // Parse gallery items from gallery.md body
 // Format: ![alt text](/images/path.jpg)\nCaption text
-function parseGalleryItems(body: string): { src: string; caption: string }[] {
-  const items: { src: string; caption: string }[] = [];
+// Per-image object-position overrides (1-indexed image number)
+const positionOverrides: Record<number, string> = {
+  5: "center 40%",
+};
+
+function parseGalleryItems(body: string): { src: string; caption: string; objectPosition?: string }[] {
+  const items: { src: string; caption: string; objectPosition?: string }[] = [];
   const lines = body.split("\n");
+  let imgNum = 0;
   for (let i = 0; i < lines.length; i++) {
     const imgMatch = lines[i].match(/^!\[.*?\]\((.*?)\)$/);
     if (imgMatch) {
+      imgNum++;
       const src = imgMatch[1];
       const caption = (lines[i + 1] && !lines[i + 1].startsWith("!")) ? lines[i + 1].trim() : "";
-      items.push({ src: asset(src), caption });
+      items.push({ src: asset(src), caption, objectPosition: positionOverrides[imgNum] });
     }
   }
   return items;
@@ -70,6 +77,7 @@ export default function GalleryPage() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
+                    objectPosition: currentItem.objectPosition || "center 20%",
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

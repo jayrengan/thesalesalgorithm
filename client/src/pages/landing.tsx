@@ -96,7 +96,7 @@ export default function LandingPage() {
             src={asset("/images/book/hero-mockup.jpg")}
             alt="The Sales Algorithm"
             className="w-full h-full object-cover"
-            style={{ scale: imgScale }}
+            style={{ scale: imgScale, objectPosition: "center 30%" }}
           />
 
           {/* Top gradient for nav readability */}
@@ -163,7 +163,8 @@ export default function LandingPage() {
                 <img
                   src={asset("/images/author/jk-anand.jpg")}
                   alt="Dr. Anand Deshpande"
-                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover mb-6 shadow-md flex-shrink-0"
+                  className="w-36 h-36 sm:w-48 sm:h-48 rounded-full object-cover mb-6 shadow-md flex-shrink-0"
+                  style={{ objectPosition: "center 40%" }}
                 />
                 <p className="text-lg leading-relaxed text-foreground/60 flex-1 flex items-center max-w-[280px]" style={{ fontFamily: "'Lora', serif", fontStyle: "italic" }}>
                   "A body of practical wisdom rarely seen written down so
@@ -183,7 +184,7 @@ export default function LandingPage() {
                 <img
                   src={asset("/images/gallery/jk-with-ashok.jpg")}
                   alt="Dr. Ashok Korwar"
-                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover mb-6 shadow-md flex-shrink-0"
+                  className="w-36 h-36 sm:w-48 sm:h-48 rounded-full object-cover object-top mb-6 shadow-md flex-shrink-0"
                 />
                 <p className="text-lg leading-relaxed text-foreground/60 flex-1 flex items-center max-w-[300px]" style={{ fontFamily: "'Lora', serif", fontStyle: "italic" }}>
                   "Sales is the single most important function in any company."
