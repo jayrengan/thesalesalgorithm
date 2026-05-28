@@ -54,7 +54,7 @@ export default function GalleryPage() {
   if (!galleryItems.length) return null;
 
   return (
-    <div className="pt-28 pb-20 px-6 space-y-8 max-w-4xl mx-auto min-h-screen" style={{ background: "#faf8f5" }}>
+    <div className="pt-28 pb-20 px-6 space-y-8 max-w-4xl mx-auto min-h-screen" style={{ background: "#fefcf9" }}>
       <motion.div initial="hidden" animate="visible" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}>
         <motion.div variants={fadeInUp} className="mb-8">
           <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">Gallery</p>

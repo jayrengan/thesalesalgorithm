@@ -11,7 +11,7 @@ export default function PodcastsPage() {
   return (
     <motion.div
       className="pt-28 pb-20 px-6 max-w-4xl mx-auto min-h-screen"
-      style={{ background: "#faf8f5" }}
+      style={{ background: "#fefcf9" }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

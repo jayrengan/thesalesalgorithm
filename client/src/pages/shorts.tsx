@@ -20,7 +20,7 @@ export default function ShortsPage() {
   }, []);
 
   return (
-    <div style={{ background: "#faf8f5" }} className="min-h-screen">
+    <div style={{ background: "#fefcf9" }} className="min-h-screen">
       <motion.div
         className="pt-28 pb-20 px-6 max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 20 }}

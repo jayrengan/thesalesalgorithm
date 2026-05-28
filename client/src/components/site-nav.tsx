@@ -35,7 +35,7 @@ export function SiteNav() {
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         isDark
           ? "bg-transparent"
-          : "bg-[#faf8f5]/95 backdrop-blur-md border-b border-[#e8e0d5]/60"
+          : "bg-[#fefcf9]/95 backdrop-blur-md border-b border-[#e8ddd0]/60"
       }`}
     >
       <div className={`mx-auto h-20 sm:h-24 flex items-center justify-between transition-all duration-300 ${
@@ -58,11 +58,11 @@ export function SiteNav() {
               className={`text-sm font-medium transition-colors ${
                 location === link.href
                   ? isDark
-                    ? "text-white border-b border-white/50"
-                    : "text-foreground border-b border-foreground/40"
+                    ? "text-white border-b-2 border-[#7B2D5F]"
+                    : "text-[#7B2D5F] border-b-2 border-[#7B2D5F]"
                   : isDark
-                    ? "text-white/90 hover:text-white"
-                    : "text-foreground/50 hover:text-foreground"
+                    ? "text-white/90 hover:text-[#E8A020]"
+                    : "text-foreground/50 hover:text-[#E8A020]"
               }`}
             >
               {link.label}
@@ -89,14 +89,18 @@ export function SiteNav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="sm:hidden bg-[#faf8f5] border-b border-[#e8e0d5]/60 overflow-hidden"
+            className="sm:hidden bg-[#fefcf9] border-b border-[#e8ddd0]/60 overflow-hidden"
           >
             <div className="px-6 py-4 space-y-3">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-sm font-medium text-foreground/70 hover:text-foreground"
+                  className={`block text-sm font-medium transition-colors ${
+                    location === link.href
+                      ? "text-[#7B2D5F] font-semibold"
+                      : "text-foreground/70 hover:text-[#E8A020]"
+                  }`}
                 >
                   {link.label}
                 </Link>

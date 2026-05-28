@@ -84,7 +84,7 @@ export default function LandingPage() {
   const overlayOpacity = useTransform(scrollYProgress, [0.0, 0.1], [0, 0.75]);
 
   return (
-    <div style={{ background: "#faf8f5" }}>
+    <div style={{ background: "#fefcf9" }}>
       {/* ─── HERO ─── */}
       <section
         ref={heroRef}
@@ -96,40 +96,41 @@ export default function LandingPage() {
             src={asset("/images/book/hero-mockup.jpg")}
             alt="The Sales Algorithm"
             className="w-full h-full object-cover"
-            style={{ scale: imgScale, objectPosition: "center 30%" }}
+            style={{ scale: imgScale, objectPosition: "70% 40%" }}
           />
 
           {/* Top gradient for nav readability */}
           <div
             className="absolute top-0 left-0 right-0 h-32 z-10"
-            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.4), transparent)" }}
+            style={{ background: "linear-gradient(to bottom, rgba(200,120,0,0.55), transparent)" }}
           />
 
           {/* Warm overlay that builds as you scroll */}
           <motion.div
             className="absolute inset-0"
-            style={{ background: "#2a1a0e", opacity: overlayOpacity }}
+            style={{ background: "#2d1040", opacity: overlayOpacity }}
           />
 
           {/* Title that reveals on scroll */}
           <motion.div
-            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pt-8"
+            className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 text-center pt-8"
             style={{ opacity: titleOpacity, y: titleY }}
           >
-            <p className="text-sm sm:text-base tracking-[0.3em] uppercase text-white/70 mb-4 font-medium">
+            <p className="text-xs sm:text-base tracking-[0.3em] uppercase text-white/70 mb-3 sm:mb-4 font-medium">
               A book by {book.author}
             </p>
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white font-bold leading-[1.05] mb-6" style={{ textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}>
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl xl:text-8xl text-white font-bold leading-[1.05] mb-4 sm:mb-6" style={{ textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}>
               The Sales
               <br />
               Algorithm
             </h1>
-            <p className="text-lg sm:text-xl text-white/80 max-w-lg mb-8 font-medium">
+            <p className="text-base sm:text-xl text-white/80 max-w-lg mb-6 sm:mb-8 font-medium px-2">
               {book.subtitle.split(/(?=Startup)/)[0]}
-              <br />
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               {book.subtitle.split(/(?=Startup)/)[1]}
             </p>
-            <span className="inline-block px-5 py-2.5 border border-white/30 rounded-full text-white/90 text-xs tracking-[0.2em] uppercase font-semibold">
+            <span className="inline-block px-4 sm:px-5 py-2 sm:py-2.5 border border-white/30 rounded-full text-white/90 text-xs tracking-[0.2em] uppercase font-semibold">
               {book.status || "Coming Soon"}
             </span>
           </motion.div>
@@ -146,7 +147,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── PRAISE ─── */}
-      <section className="py-24 sm:py-32 px-6" style={{ background: "#f5f1eb" }}>
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#fdf5ed" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 text-center">
@@ -202,41 +203,70 @@ export default function LandingPage() {
       </section>
 
       {/* ─── ABOUT THE BOOK ─── */}
-      <section className="py-24 sm:py-32 px-6" style={{ background: "#faf8f5" }}>
-        <div className="max-w-3xl mx-auto">
-          <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
-              About the Book
-            </p>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-10">
-              From first pitch to Fortune 500 deals
-            </h2>
-          </Reveal>
-          {introParagraphs.map((para: string, i: number) => (
-            <Reveal key={i} delay={0.08 * (i + 1)}>
-              <p className="text-lg leading-relaxed text-foreground/70 mb-6">
-                {para}
-              </p>
-            </Reveal>
-          ))}
-          <Reveal delay={0.2}>
-            <div className="flex flex-wrap gap-2 mt-10">
-              {(book.audiences || []).map((audience: string, i: number) => (
-                <span
-                  key={i}
-                  className="px-4 py-1.5 rounded-full text-sm text-foreground/50"
-                  style={{ background: "rgba(0,0,0,0.03)", border: "1px solid rgba(0,0,0,0.06)" }}
-                >
-                  {audience}
-                </span>
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#fefcf9" }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-start">
+            <div className="max-w-3xl">
+              <Reveal>
+                <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
+                  About the Book
+                </p>
+                <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-10">
+                  From first pitch to Fortune 500 deals
+                </h2>
+              </Reveal>
+              {introParagraphs.map((para: string, i: number) => (
+                <Reveal key={i} delay={0.08 * (i + 1)}>
+                  <p className="text-lg leading-relaxed text-foreground/70 mb-6">
+                    {para}
+                  </p>
+                </Reveal>
               ))}
+              <Reveal delay={0.2}>
+                <div className="flex flex-wrap gap-2 mt-10">
+                  {(book.audiences || []).map((audience: string, i: number) => (
+                    <span
+                      key={i}
+                      className="px-4 py-1.5 rounded-full text-sm text-foreground/50"
+                      style={{ background: "rgba(0,0,0,0.03)", border: "1px solid rgba(0,0,0,0.06)" }}
+                    >
+                      {audience}
+                    </span>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+            <Reveal delay={0.15}>
+              <img
+                src={asset("/images/book/JK-11.jpg")}
+                alt="The Sales Algorithm — front and back cover"
+                className="w-full md:w-72 lg:w-80 rounded-lg shadow-lg object-cover mx-auto"
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── BOOK GALLERY COLLAGE ─── */}
+      <section className="py-16 sm:py-20 px-6" style={{ background: "#fdf5ed" }}>
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[140px] sm:auto-rows-[160px] md:auto-rows-[140px]">
+              {/* JK-8: landscape — 4 books upright, span 2 cols */}
+              <img src={asset("/images/book/JK-8.jpg")} alt="Books standing upright" className="col-span-2 row-span-2 w-full h-full object-cover rounded-lg" />
+              {/* JK-6: portrait — flat lay, pull down within frame */}
+              <img src={asset("/images/book/JK-6.jpg")} alt="Book covers flat lay" className="row-span-2 w-full h-full object-cover rounded-lg" style={{ objectPosition: "center 30%" }} />
+              {/* JK-15: landscape — stacked copies */}
+              <img src={asset("/images/book/JK-15.jpg")} alt="Stacked copies" className="w-full h-full object-cover rounded-lg" />
+              {/* JK-7: landscape — books on table, show more of the image */}
+              <img src={asset("/images/book/JK-7.jpg")} alt="Books spread on table" className="w-full h-full object-cover rounded-lg" style={{ objectPosition: "center 30%" }} />
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* ─── WHAT'S INSIDE ─── */}
-      <section className="py-24 sm:py-32 px-6" style={{ background: "#f5f1eb" }}>
+      <section className="py-24 sm:py-32 px-6" style={{ background: "#fefcf9" }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -257,11 +287,11 @@ export default function LandingPage() {
                   className="p-5 rounded-lg"
                   style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.05)" }}
                 >
-                  <span className="font-mono text-xs block mb-2" style={{ color: "rgba(0,0,0,0.15)" }}>
+                  <span className="font-mono text-sm block mb-2" style={{ color: "rgba(0,0,0,0.15)" }}>
                     {h.num}
                   </span>
-                  <p className="text-sm font-semibold mb-1">{h.title}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-base sm:text-lg font-semibold mb-1">{h.title}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     {h.desc}
                   </p>
                 </div>
@@ -270,11 +300,11 @@ export default function LandingPage() {
                 className="p-5 rounded-lg border border-dashed"
                 style={{ background: "transparent", borderColor: "rgba(0,0,0,0.1)" }}
               >
-                <span className="font-mono text-xs block mb-2" style={{ color: "rgba(0,0,0,0.12)" }}>
+                <span className="font-mono text-sm block mb-2" style={{ color: "rgba(0,0,0,0.12)" }}>
                   ...
                 </span>
-                <p className="text-sm font-semibold mb-1 text-foreground/50">And much more</p>
-                <p className="text-xs text-muted-foreground/70 leading-relaxed">
+                <p className="text-base sm:text-lg font-semibold mb-1 text-foreground/50">And much more</p>
+                <p className="text-sm sm:text-base text-muted-foreground/70 leading-relaxed">
                   Team building, customer success, goal setting, partner influence, and more
                 </p>
               </div>
@@ -284,7 +314,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── THE PODCAST ─── */}
-      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-6" style={{ background: "#faf8f5" }}>
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-6" style={{ background: "#fefcf9" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -323,7 +353,7 @@ export default function LandingPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm font-medium group-hover:text-foreground/60 transition-colors">
+                  <p className="text-base font-medium group-hover:text-[#E8A020] transition-colors">
                     Ep {podcast.episode}: {podcast.title}
                   </p>
                 </a>
@@ -372,7 +402,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── THE JOURNEY ─── */}
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-6" style={{ background: "#f5f1eb" }}>
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-6" style={{ background: "#fdf5ed" }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -386,6 +416,13 @@ export default function LandingPage() {
             <p className="text-lg leading-relaxed text-foreground/70 mb-6">
               From early January 2025, what began as an idea gradually took shape into this book. Family played a pivotal role: Jayashree's constant encouragement, Kshitij's suggestion to journal coaching sessions (which became the backbone of the content), Baani's advice to enrich it with real-life experiences, and Shashvat's proposal for the title and the "Try It Out" sections that shaped it into a practical guide.
             </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <img
+              src={asset("/images/book/JK-20.jpg")}
+              alt="Reading The Sales Algorithm"
+              className="w-full sm:w-2/3 rounded-lg shadow-md mb-8 mx-auto"
+            />
           </Reveal>
           <Reveal delay={0.12}>
             <p className="text-lg leading-relaxed text-foreground/70 mb-6">
@@ -401,25 +438,25 @@ export default function LandingPage() {
       </section>
 
       {/* ─── THE AUTHOR ─── */}
-      <section className="pt-12 sm:pt-16 pb-24 sm:pb-32 px-6" style={{ background: "#faf8f5" }}>
+      <section className="pt-12 sm:pt-16 pb-24 sm:pb-32 px-6" style={{ background: "#fefcf9" }}>
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-8">
               The Author
             </p>
             <img
-              src={asset("/images/author/jk-portrait.jpg")}
+              src={asset("/images/book/IMG_1730.jpg")}
               alt="Rengan Jayakrishnan"
-              className="w-32 h-32 rounded-full object-cover object-top mx-auto mb-6 shadow-lg"
-              style={{ border: "2px solid #fff" }}
+              className="w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover object-top mx-auto mb-6 shadow-lg"
+              style={{ border: "3px solid #fff" }}
             />
-            <h3 className="font-serif text-2xl font-bold mb-2">
+            <h3 className="font-serif text-3xl sm:text-4xl font-bold mb-2">
               Rengan Jayakrishnan
             </h3>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-base sm:text-lg text-muted-foreground mb-6">
               Author · Sales Leader · Consultant · Mentor
             </p>
-            <p className="text-foreground/60 leading-relaxed mb-8 max-w-xl mx-auto">
+            <p className="text-lg leading-relaxed text-foreground/60 mb-8 max-w-xl mx-auto">
               With 30+ years of global experience in B2B software sales, JK
               advises startup founders and leadership teams on building scalable
               sales engines, channel ecosystems, and go-to-market strategies. An
