@@ -102,7 +102,7 @@ export default function LandingPage() {
           {/* Top gradient for nav readability */}
           <div
             className="absolute top-0 left-0 right-0 h-32 z-10"
-            style={{ background: "linear-gradient(to bottom, rgba(200,120,0,0.55), transparent)" }}
+            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.3), transparent)" }}
           />
 
           {/* Warm overlay that builds as you scroll */}
