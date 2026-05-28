@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Play } from "lucide-react";
+import { ArrowDown, Play, ArrowUpRight } from "lucide-react";
 import { SiYoutube, SiSpotify, SiInstagram } from "react-icons/si";
 import { Link } from "wouter";
 import content from "virtual:content";
@@ -25,6 +25,39 @@ function Reveal({
     >
       {children}
     </motion.div>
+  );
+}
+
+const buyLinks = [
+  { label: "Notion Press", href: "https://notionpress.com/in/read/the-sales-algorithm" },
+  { label: "Flipkart", href: "https://www.flipkart.com/sales-algorithm-makes-great-products-sell-playbook-startup-founders-professionals/p/itm3bb1ea2bcdde1?pid=9798902967835&affid=editornoti" },
+  { label: "Amazon.in", href: "https://amzn.in/d/09pUnIbj" },
+  { label: "Amazon.com", href: "https://a.co/d/0394Cfsi" },
+  { label: "Amazon.co.uk", href: "https://amzn.eu/d/0grKFk5T" },
+];
+
+
+function OrderCTA() {
+  return (
+    <div className="flex flex-col items-center gap-2 py-4">
+      <a
+        href="https://notionpress.com/in/read/the-sales-algorithm"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold tracking-[0.15em] uppercase bg-[#E8A020] text-white hover:bg-[#d4911a] transition-colors"
+      >
+        Order Now <ArrowUpRight className="w-4 h-4" />
+      </a>
+      <p className="text-xs text-foreground/40 tracking-[0.1em] uppercase mt-1">
+        Also on{" "}&nbsp;
+        {buyLinks.filter(l => l.label !== "Notion Press").map((link, i, arr) => (
+          <span key={link.label}>
+            <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-[#E8A020] transition-colors underline underline-offset-2">{link.label}</a>
+            {i < arr.length - 1 && " · "}
+          </span>
+        ))}
+      </p>
+    </div>
   );
 }
 
@@ -130,9 +163,25 @@ export default function LandingPage() {
               <span className="sm:hidden"> </span>
               {book.subtitle.split(/(?=Startup)/)[1]}
             </p>
-            <span className="inline-block px-4 sm:px-5 py-2 sm:py-2.5 border border-white/30 rounded-full text-white/90 text-xs tracking-[0.2em] uppercase font-semibold">
-              {book.status || "Coming Soon"}
-            </span>
+            <div className="flex flex-col items-center gap-3">
+              <a
+                href="https://notionpress.com/in/read/the-sales-algorithm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold tracking-[0.15em] uppercase bg-white/90 text-[#7B2D5F] hover:bg-[#E8A020] hover:text-white transition-colors"
+              >
+                Order Now <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <p className="text-xs text-white/50 tracking-[0.1em] uppercase mt-1">
+                Also on{" "}&nbsp;
+                {buyLinks.filter(l => l.label !== "Notion Press").map((link, i, arr) => (
+                  <span key={link.label}>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#E8A020] transition-colors underline underline-offset-2">{link.label}</a>
+                    {i < arr.length - 1 && " · "}
+                  </span>
+                ))}
+              </p>
+            </div>
           </motion.div>
 
           {/* Scroll hint */}
@@ -237,11 +286,16 @@ export default function LandingPage() {
               </Reveal>
             </div>
             <Reveal delay={0.15}>
-              <img
-                src={asset("/images/book/JK-11.jpg")}
-                alt="The Sales Algorithm — front and back cover"
-                className="w-full md:w-72 lg:w-80 rounded-lg shadow-lg object-cover mx-auto"
-              />
+              <div className="flex flex-col items-center md:mt-40">
+                <img
+                  src={asset("/images/book/JK-11.jpg")}
+                  alt="The Sales Algorithm — front and back cover"
+                  className="w-full md:w-96 lg:w-[28rem] rounded-lg shadow-lg object-cover"
+                />
+                <div className="mt-6">
+                  <OrderCTA />
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -266,7 +320,7 @@ export default function LandingPage() {
       </section>
 
       {/* ─── WHAT'S INSIDE ─── */}
-      <section className="py-24 sm:py-32 px-6" style={{ background: "#fefcf9" }}>
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-6" style={{ background: "#fefcf9" }}>
         <div className="max-w-3xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -310,11 +364,16 @@ export default function LandingPage() {
               </div>
             </div>
           </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-12">
+              <OrderCTA />
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ─── THE PODCAST ─── */}
-      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-6" style={{ background: "#fefcf9" }}>
+      <section className="pt-12 sm:pt-16 pb-16 sm:pb-20 px-6" style={{ background: "#fefcf9" }}>
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">
@@ -433,6 +492,9 @@ export default function LandingPage() {
             <p className="text-lg leading-relaxed text-foreground/70">
               The opportunity to interview Anand Deshpande, whose insights were deeply aligned with the book's core ideas, was a defining moment. This journey has been deeply fulfilling, and this book is the result of countless conversations, late nights, and a belief that sales can be taught, structured, and mastered.
             </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <OrderCTA />
           </Reveal>
         </div>
       </section>

@@ -72,6 +72,28 @@ export function Footer() {
             </SocialLink>
           )}
         </div>
+        <div className="mb-8">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Purchase</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { label: "Notion Press", href: "https://notionpress.com/in/read/the-sales-algorithm" },
+              { label: "Flipkart", href: "https://www.flipkart.com/sales-algorithm-makes-great-products-sell-playbook-startup-founders-professionals/p/itm3bb1ea2bcdde1?pid=9798902967835&affid=editornoti" },
+              { label: "Amazon.in", href: "https://amzn.in/d/09pUnIbj" },
+              { label: "Amazon.com", href: "https://a.co/d/0394Cfsi" },
+              { label: "Amazon.co.uk", href: "https://amzn.eu/d/0grKFk5T" },
+            ].map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-white/40 hover:text-[#E8A020] transition-colors underline underline-offset-2"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
         <p className="text-xs text-white/20">
           &copy; {new Date().getFullYear()} The Sales Algorithm. All rights
           reserved.
