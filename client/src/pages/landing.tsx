@@ -39,7 +39,7 @@ const buyLinks = [
 
 function OrderCTA() {
   return (
-    <div className="flex flex-col items-center gap-2 py-4">
+    <div className="flex flex-col items-center gap-2 py-4 w-full">
       <a
         href="https://notionpress.com/in/read/the-sales-algorithm"
         target="_blank"
@@ -48,7 +48,7 @@ function OrderCTA() {
       >
         Order Now <ArrowUpRight className="w-4 h-4" />
       </a>
-      <p className="text-xs text-foreground/40 tracking-[0.1em] uppercase mt-1">
+      <p className="text-xs text-foreground/40 tracking-[0.1em] uppercase mt-1 text-center">
         Also on{" "}&nbsp;
         {buyLinks.filter(l => l.label !== "Notion Press").map((link, i, arr) => (
           <span key={link.label}>
@@ -172,7 +172,7 @@ export default function LandingPage() {
               >
                 Order Now <ArrowUpRight className="w-4 h-4" />
               </a>
-              <p className="text-xs text-white/50 tracking-[0.1em] uppercase mt-1">
+              <p className="text-xs text-white/50 tracking-[0.1em] uppercase mt-1 text-center">
                 Also on{" "}&nbsp;
                 {buyLinks.filter(l => l.label !== "Notion Press").map((link, i, arr) => (
                   <span key={link.label}>
@@ -365,7 +365,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="mt-12">
+            <div className="mt-12 flex justify-center">
               <OrderCTA />
             </div>
           </Reveal>

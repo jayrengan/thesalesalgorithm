@@ -87,7 +87,7 @@ export function Footer() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-white/40 hover:text-[#E8A020] transition-colors underline underline-offset-2"
+                className="text-xs text-white/40 hover:text-[#E8A020] transition-colors underline underline-offset-2 uppercase tracking-[0.1em]"
               >
                 {link.label}
               </a>
