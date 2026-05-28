@@ -18,17 +18,11 @@ Front and back cover
 ![The Sales Algorithm team](/images/gallery/team-group.jpg)
 The Sales Algorithm team
 
-![The Sales Algorithm — flat lay](/images/book/JK-6.jpg)
-The Sales Algorithm
-
 ![Panel discussion](/images/gallery/panel-discussion-1.jpg)
 Panel discussion
 
-![Reading The Sales Algorithm](/images/book/JK-20.jpg)
-Reading The Sales Algorithm
-
-![Anand and JK](/images/author/jk-anand.jpg)
-Anand Deshpande and JK
+![The Sales Algorithm — multiple copies](/images/book/JK-9.jpg)
+The Sales Algorithm
 
 ![The Sales Algorithm — stacked copies](/images/book/JK-15.jpg)
 Stacked copies
@@ -36,14 +30,11 @@ Stacked copies
 ![Rengan Jayakrishnan](/images/author/jk-portrait.jpg)
 Rengan Jayakrishnan
 
-![The Sales Algorithm — books on table](/images/book/JK-7.jpg)
-The Sales Algorithm
+![Anand and JK](/images/author/jk-anand.jpg)
+Anand Deshpande and JK
 
 ![Panel discussion — different angle](/images/gallery/panel-discussion-2.jpg)
 Panel discussion
-
-![Author with the book](/images/book/IMG_1730.jpg)
-Rengan Jayakrishnan with The Sales Algorithm
 
 ![JK with Sandip Chintawar](/images/gallery/jk-with-sandip.jpg)
 JK with Sandip Chintawar

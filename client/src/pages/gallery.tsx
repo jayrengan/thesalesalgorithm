@@ -8,7 +8,12 @@ import { asset } from "@/lib/assets";
 // Format: ![alt text](/images/path.jpg)\nCaption text
 // Per-image object-position overrides (1-indexed image number)
 const positionOverrides: Record<number, string> = {
-  5: "center 40%",
+  2: "center 40%",
+  10: "center 50%",
+  12: "center 10%",
+  13: "center 20%",
+  14: "center 15%",
+  15: "center 15%",
 };
 
 function parseGalleryItems(body: string): { src: string; caption: string; objectPosition?: string }[] {
